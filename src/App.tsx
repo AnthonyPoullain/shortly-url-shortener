@@ -177,7 +177,7 @@ function App() {
 							Advanced Statistics
 						</h2>
 						<p className="text-md text-neutral-grayish-violet leading-loose max-w-md">
-							Track how your links are performing across the web with ou
+							Track how your links are performing across the web with our
 							advanced statistics dashboard.
 						</p>
 					</div>
