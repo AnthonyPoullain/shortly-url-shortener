@@ -7,7 +7,7 @@ function Hero() {
 				<h1 className="text-4xl text-neutral-dark-violet sm:text-6xl my-3 font-bold leading-tight sm:leading-tight">
 					More than just shorter links
 				</h1>
-				<p className="text-sm text-neutral-grayish-violet mb-6">
+				<p className="text-md text-neutral-grayish-violet mb-6">
 					Build your brand's recognition and get detailed <br /> insights on how
 					your links are performing.
 				</p>

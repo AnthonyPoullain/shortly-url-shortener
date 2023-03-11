@@ -5,7 +5,7 @@ function Header() {
 	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
-		<header className="max-w-screen-xl sm:px-10 px-5 py-7 sm:py-10 flex items-center justify-between relative">
+		<header className="max-w-screen-xl sm:px-10 px-5 py-7 sm:py-10 flex items-center justify-between relative mx-auto">
 			<div className="flex items-center gap-12">
 				<a href="/">
 					<img
@@ -17,7 +17,7 @@ function Header() {
 				<nav className="hidden sm:block">
 					<ul className="text-sm font-bold text-neutral-grayish-violet flex gap-6">
 						<li>
-							<a href="#" className="hover:text-neutral-dark-violet">
+							<a href="#features" className="hover:text-neutral-dark-violet">
 								Features
 							</a>
 						</li>
@@ -68,7 +68,7 @@ function Header() {
 					<nav>
 						<ul className="flex flex-col gap-5">
 							<li>
-								<a href="#">Features</a>
+								<a href="#features">Features</a>
 							</li>
 							<li>
 								<a href="#">Pricing</a>
