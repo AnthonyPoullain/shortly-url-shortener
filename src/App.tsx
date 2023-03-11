@@ -23,6 +23,8 @@ interface LinksAction {
 	payload: Link;
 }
 
+type LinksState = Link[];
+
 interface Card {
 	key?: number;
 	icon: string;
@@ -57,14 +59,15 @@ const cards: Card[] = [
 	},
 ];
 
-function reducer(state, action: LinksAction) {
+function reducer(state: LinksState, action: LinksAction) {
 	switch (action.type) {
 		case 'ADD_LINK': {
-			state.unshift(action.payload);
-			return state;
+			const newState = [...state];
+			newState.unshift(action.payload);
+			return newState;
 		}
 		default:
-			break;
+			return state;
 	}
 }
 
@@ -93,8 +96,10 @@ function App() {
 		setLink('');
 	};
 
-	const handleCopy = (e: React.MouseEventHandler<HTMLButtonElement>) => {
-		const shortenedUrl = e.target.closest('div').querySelector('p').innerText;
+	const handleCopy = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const shortenedUrl = (e.target as HTMLInputElement)
+			?.closest('div')
+			?.querySelector('p')?.innerText;
 		if (!shortenedUrl) return;
 		navigator.clipboard.writeText(shortenedUrl);
 		console.log('Copied!');
