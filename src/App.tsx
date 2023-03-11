@@ -1,9 +1,9 @@
 import './App.css';
+import { useEffect, useState, useReducer } from 'react';
+
 import Header from './components/Header';
 import Hero from './components/Hero';
-import ShortenerInput from './components/ShortenerInput';
 import FeatureCard from './components/FeatureCard';
-import LinkCard from './components/LinkCard';
 
 import BrandRecognitionIcon from './assets/icon-brand-recognition.svg';
 import DetailedRecordsIcon from './assets/icon-detailed-records.svg';
@@ -16,12 +16,26 @@ import TwitterIcon from './assets/icon-twitter.svg';
 import PinterestIcon from './assets/icon-pinterest.svg';
 import InstagramIcon from './assets/icon-instagram.svg';
 
+import ShortenerService from './services/shortener.service';
+
+interface LinksAction {
+	type: string;
+	payload: Link;
+}
+
 interface Card {
 	key?: number;
 	icon: string;
 	title: string;
 	text: string;
 }
+
+interface Link {
+	key?: number;
+	link: string;
+	shortened: string;
+}
+
 const cards: Card[] = [
 	{
 		key: 1,
@@ -43,21 +57,49 @@ const cards: Card[] = [
 	},
 ];
 
-interface Link {
-	key?: number;
-	link: string;
-	shortened: string;
+function reducer(state, action: LinksAction) {
+	switch (action.type) {
+		case 'ADD_LINK': {
+			state.unshift(action.payload);
+			return state;
+		}
+		default:
+			break;
+	}
 }
 
-const links: Link[] = [
-	{
-		key: 1,
-		link: 'https://www.frontendmentor.io',
-		shortened: 'https://rel.ink/k4lKyk',
-	},
-];
-
 function App() {
+	const [links, dispatch] = useReducer(reducer, []);
+	const [link, setLink] = useState('');
+	const [clicked, setClicked] = useState(false);
+
+	useEffect(() => {
+		if (clicked && !link) {
+			setClicked(false);
+		}
+		console.log(link);
+	}, [link]);
+
+	useEffect(() => {
+		console.log(links);
+	}, [links]);
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (!link) return;
+		const shortened = await ShortenerService.shorten(link);
+		if (!shortened) return;
+		dispatch({ type: 'ADD_LINK', payload: { link, shortened } });
+		setLink('');
+	};
+
+	const handleCopy = (e: React.MouseEventHandler<HTMLButtonElement>) => {
+		const shortenedUrl = e.target.closest('div').querySelector('p').innerText;
+		if (!shortenedUrl) return;
+		navigator.clipboard.writeText(shortenedUrl);
+		console.log('Copied!');
+	};
+
 	return (
 		<>
 			<Header />
@@ -65,14 +107,59 @@ function App() {
 				<Hero />
 				<div id="shortener" className="h-0 w-0 relative top-[-4rem]" />
 				<section className="max-w-screen-full bg-gray-200 ">
-					<ShortenerInput />
+					<div className="max-w-screen-xl sm:px-10 px-5 mx-auto translate-y-[-70px] mt-[70px]">
+						<div className="h-full bg-primary-violet bg-shorten-mobile sm:bg-shorten-desktop bg-bottom bg-cover w-full p-5 sm:p-12 rounded-md mb-2 relative ">
+							<form
+								onSubmit={handleSubmit}
+								className="flex flex-col sm:flex-row items-center gap-8 sm:gap-5 justify-center"
+							>
+								<input
+									type="text"
+									name="link"
+									value={link}
+									className={`min-h-full h-[44px] text-neutral-dark-violet w-full bg-white rounded-md text-xs sm:text-sm font-medium p-3 sm:p-5 ${clicked && !link ? 'input--error' : ''
+										}`}
+									onChange={(e) => setLink(e.currentTarget.value)}
+									placeholder="Shorten a link here..."
+								/>
+								<button
+									type="submit"
+									className="text-sm w-full sm:w-fit text-white font-bold bg-primary-cyan py-3 px-9 rounded-md whitespace-nowrap"
+									onClick={() => setClicked(true)}
+								>
+									Shorten it!
+								</button>
+							</form>
+							{clicked && !link ? (
+								<span className="block text-xs mt-2 italic text-medium text-secondary absolute bottom-[4.75rem] sm:bottom-6 ">
+									Please add a link
+								</span>
+							) : null}
+						</div>
+					</div>
 					<div className="max-w-screen-xl sm:px-10 px-5 mx-auto translate-y-[-70px]">
-						{links.map((item) => (
-							<LinkCard
-								key={item.key}
-								link={item.link}
-								shortened={item.shortened}
-							/>
+						{links.map((item: Link) => (
+							<div
+								key={crypto.randomUUID()}
+								className="text-sm text-neutral-dark-violet bg-white py-5 sm:py-3 flex flex-col sm:flex-row  sm:items-center justify-between gap-y-3 mt-3 rounded-md px-5 overflow-x-hidden"
+							>
+								<p className="w-full whitespace-nowrap overflow-hidden text-ellipsis">
+									{item.link}
+								</p>
+								<div className="sm:hidden w-[200%] translate-x-[-10%] origin-center h-[.05rem] opacity-10 bg-black my-0.5" />
+								<div className="flex sm:flex-row flex-col sm:items-center gap-4 overflow-y-visible">
+									<p className="w-full whitespace-nowrap overflow-hidden text-ellipsis text-primary-cyan">
+										{item.shortened}
+									</p>
+									<button
+										type="button"
+										onClick={handleCopy}
+										className="text-white bg-primary-cyan py-2 px-6 rounded-md"
+									>
+										Copy
+									</button>
+								</div>
+							</div>
 						))}
 					</div>
 				</section>
