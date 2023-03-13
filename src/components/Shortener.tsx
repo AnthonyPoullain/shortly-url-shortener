@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import ShortenerService from '../services';
+import CopyButton from './CopyButton';
 
 function reducer(state: LinksState, action: LinksAction) {
 	switch (action.type) {
@@ -39,7 +40,6 @@ function Shortener() {
 			?.querySelector('p')?.innerText;
 		if (!shortenedUrl) return;
 		navigator.clipboard.writeText(shortenedUrl);
-		console.log('Copied!');
 	};
 
 	useEffect(() => {
@@ -96,13 +96,7 @@ function Shortener() {
 							</p>
 
 							{/* TODO: Refactor copy button component & handle click visual feedback */}
-							<button
-								type="button"
-								onClick={handleCopy}
-								className="text-white bg-primary-cyan py-2 px-6 rounded-md"
-							>
-								Copy
-							</button>
+							<CopyButton onClick={handleCopy} delay={5} />
 						</div>
 					</div>
 				))}
