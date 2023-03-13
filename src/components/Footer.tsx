@@ -81,12 +81,9 @@ function Footer() {
 				</nav>
 				<nav>
 					<ul className="w-fit flex gap-4 mx-auto ">
-						{/* TODO: Social icons hover effect */}
 						{SOCIALS.map((social) => (
 							<li key={crypto.randomUUID()}>
-								<a href="#">
-									<img src={social.icon} alt={social.alt} />
-								</a>
+								<a href="#">{social.icon}</a>
 							</li>
 						))}
 					</ul>

@@ -7,6 +7,7 @@ export default function useComponentVisible(initialIsVisible: boolean) {
 
 	const handleClickOutside = (e: Event) => {
 		if (ref.current && !ref.current.contains(e.target as Node)) {
+			e.stopPropagation();
 			setIsComponentVisible(false);
 		}
 	};

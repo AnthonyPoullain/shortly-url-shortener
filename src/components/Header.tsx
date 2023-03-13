@@ -55,7 +55,7 @@ function Header() {
 			<button
 				type="button"
 				className="w-5 sm:hidden"
-				onClick={() => setIsComponentVisible(!isComponentVisible)}
+				onClick={() => setIsComponentVisible((prev) => !prev)}
 			>
 				<svg
 					className="text-neutral-grayish-violet fill-current"
@@ -64,10 +64,10 @@ function Header() {
 					<path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
 				</svg>
 			</button>
-			{isComponentVisible && isComponentVisible ? (
+			{isComponentVisible ? (
 				<div
 					ref={ref}
-					className="absolute block sm:hidden top-0 left-1/2 translate-x-[-50%] w-[calc(100vw-40px)] translate-y-20 text-center bg-primary-violet text-white text-sm font-bold p-6 rounded-md"
+					className="absolute block sm:hidden top-[4.5rem] left-1/2 translate-x-[-50%] w-[calc(100vw-40px)]  text-center bg-primary-violet text-white text-sm font-bold p-6 rounded-md"
 				>
 					<nav>
 						<ul className="flex flex-col gap-5">

@@ -17,6 +17,6 @@ interface FeatureCard {
 }
 
 interface Img {
-	icon: string;
+	icon: ReactElement;
 	alt: string;
 }

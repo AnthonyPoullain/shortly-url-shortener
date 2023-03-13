@@ -94,8 +94,6 @@ function Shortener() {
 							<p className="w-full whitespace-nowrap overflow-hidden text-ellipsis text-primary-cyan">
 								{item.shortened}
 							</p>
-
-							{/* TODO: Refactor copy button component & handle click visual feedback */}
 							<CopyButton onClick={handleCopy} delay={5} />
 						</div>
 					</div>
