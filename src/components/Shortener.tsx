@@ -25,6 +25,35 @@ function Shortener() {
 		}
 	}, [link]);
 
+	// Handle local storage
+	useEffect(() => {
+		const links: Link[] =
+			JSON.parse(localStorage.getItem('links') as string) || [];
+
+		// If links in localstorage...
+		if (!!links.length) {
+			links
+				// ...filter out any duplicates...
+				.filter(
+					(obj, index, self) =>
+						index ===
+						self.findIndex(
+							(t) => t.shortened === obj.shortened && t.link === obj.link
+						)
+				)
+				// ...update the UI with the existing links on page load
+				.forEach((link: Link) => {
+					dispatch({
+						type: 'ADD_LINK',
+						payload: { link: link.link, shortened: link.shortened },
+					});
+				});
+		}
+
+		// If no links, links key = empty array
+		localStorage.setItem('links', JSON.stringify(links));
+	}, []);
+
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		if (!link) return;
