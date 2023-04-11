@@ -11,7 +11,7 @@ function Footer(): JSX.Element {
 		<footer className="bg-neutral-dark-violet text-center md:text-left text-neutral-grayish-violet font-normal ">
 			<div className="max-w-screen-xl md:px-10 px-5 py-16 mx-auto md:grid grid-cols-6 gap-2">
 				<div className="mb-10 col-span-2">
-					<a className="" href="/">
+					<a className="" href="#">
 						<img
 							className="h-6 block mx-auto md:mx-0 scale-125 w-fit origin-center md:origin-left contrast-200 invert"
 							src={Logo}

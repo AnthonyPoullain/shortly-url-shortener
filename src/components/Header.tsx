@@ -13,7 +13,7 @@ function Header(): JSX.Element {
 	return (
 		<header className="max-w-screen-xl sm:px-10 px-5 py-7 sm:py-10 flex items-center justify-between relative mx-auto">
 			<div className="flex items-center gap-12">
-				<a href="/">
+				<a href="#">
 					<img
 						className="h-6 block scale-125 origin-left"
 						src={Logo}
