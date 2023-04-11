@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * A button component that displays "Copy" by default, and "Copied!" when clicked.
+ * The button is disabled while the "Copied!" message is displayed, and for a specified delay afterwards.
+ *
+ * @param onClick - A function to be called when the button is clicked.
+ * @param delay - The delay (in seconds) before the button becomes clickable again after displaying "Copied!".
+ *
+ * @returns A React button component.
+ */
 function CopyButton({
 	onClick,
 	delay,
 }: {
 	onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	delay: number;
-}) {
+}): JSX.Element {
 	const [clicked, setClicked] = useState(false);
 
 	function handleClick(e: React.MouseEvent<HTMLButtonElement>) {

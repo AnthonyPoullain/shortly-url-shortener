@@ -1,6 +1,11 @@
 import Illustration from '../assets/illustration-working.svg';
 
-function Hero() {
+/**
+ * Renders the Hero component.
+ *
+ * @returns {JSX.Element} The JSX Element for the Hero component.
+ */
+function Hero(): JSX.Element {
 	return (
 		<section className="max-w-screen-xl sm:px-10 px-5 flex items-center flex-col-reverse sm:flex-row gap-[5vw] pb-20">
 			<div className="min-w-[50%] text-center sm:text-left">

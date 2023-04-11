@@ -1,7 +1,12 @@
 import Logo from '../assets/logo.svg';
 import { useComponentVisible } from '../hooks';
 
-function Header() {
+/**
+ * Renders the header component for the website.
+ *
+ * @returns {JSX.Element} The JSX Element for the header component.
+ */
+function Header(): JSX.Element {
 	const { ref, isComponentVisible, setIsComponentVisible } =
 		useComponentVisible(false);
 

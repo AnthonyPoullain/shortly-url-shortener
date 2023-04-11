@@ -2,6 +2,14 @@ import { useEffect, useReducer, useState } from 'react';
 import ShortenerService from '../services';
 import CopyButton from './CopyButton';
 
+/**
+ * A reducer function that updates the state of the links array based on the action type and payload.
+ *
+ * @param state The current state of the links array.
+ * @param action An object that contains the action type and payload.
+ *
+ * @returns The updated state of the links array.
+ */
 function reducer(state: LinksState, action: LinksAction) {
 	switch (action.type) {
 		case 'ADD_LINK': {
@@ -18,7 +26,12 @@ function reducer(state: LinksState, action: LinksAction) {
 	}
 }
 
-function Shortener() {
+/**
+ * A component that allows users to shorten URLs and display a list of previously shortened URLs.
+ *
+ * @returns {JSX.Element} The JSX Element for the Shortener component.
+ */
+function Shortener(): JSX.Element {
 	const [links, dispatch] = useReducer(reducer, []);
 	const [link, setLink] = useState('');
 	const [clicked, setClicked] = useState(false);

@@ -1,7 +1,12 @@
 import { Logo } from '../assets';
 import { SOCIALS } from '../constants';
 
-function Footer() {
+/**
+ * Renders the footer component for the Shortly website.
+ *
+ * @returns {JSX.Element} The JSX element for the footer component.
+ */
+function Footer(): JSX.Element {
 	return (
 		<footer className="bg-neutral-dark-violet text-center md:text-left text-neutral-grayish-violet font-normal ">
 			<div className="max-w-screen-xl md:px-10 px-5 py-16 mx-auto md:grid grid-cols-6 gap-2">
