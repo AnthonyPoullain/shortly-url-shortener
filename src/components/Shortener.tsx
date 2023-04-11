@@ -7,6 +7,10 @@ function reducer(state: LinksState, action: LinksAction) {
 		case 'ADD_LINK': {
 			const newState = [...state];
 			newState.unshift(action.payload);
+
+			// Limit number of links to 5 at a time
+			if (!!newState.length && newState.length > 5) newState.pop();
+			localStorage.setItem('links', JSON.stringify(newState));
 			return newState;
 		}
 		default:
